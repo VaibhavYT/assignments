@@ -4,9 +4,24 @@
 
   Once you've implemented the logic, test your code by running
 */
-
 function countVowels(str) {
-    // Your code here
+  let count = 0;
+  let mp = new Map();
+  const vowels = ["a", "e", "i", "o", "u"];
+  
+  vowels.forEach((element) => {
+    mp.set(element, true);
+    mp.set(element.toUpperCase(), true);
+  });
+
+  for (let char of str) {
+    if (mp.has(char)) {
+      count++;
+    }
+  }
+  
+  return count;
 }
 
 module.exports = countVowels;
+

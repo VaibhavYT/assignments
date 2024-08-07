@@ -1,6 +1,7 @@
 const charCountMap = new Map();
 
 function isAnagram(str1, str2) {
+  //* This is how we can modify string , -> \s checks the whitespace and tabs and newline and \g stand for the global (means not just for one more than one)
   
   const preprocess = (str) => str.toLowerCase().replace(/\s+/g, '');
 
@@ -12,8 +13,7 @@ function isAnagram(str1, str2) {
   }
 
   
-
-  
+ 
   for (const char of normalizedStr2) {
     charCountMap.set(char, (charCountMap.get(char) || 0) + 1);
   }

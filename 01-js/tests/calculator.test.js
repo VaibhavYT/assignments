@@ -26,6 +26,7 @@ describe('Calculator', () => {
 		calc.subtract(3);
 		expect(calc.getResult()).toBe(-8);
 	});
+	
 
 	test('multiplication', () => {
 		calc.add(4);

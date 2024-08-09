@@ -15,6 +15,7 @@ function pushExample(arr, element) {
 pushExample([1, 2, 3], 4);
 
 // pop()
+// This is to take out the last element in array
 function popExample(arr) {
   console.log("Original Array:", arr);
 
@@ -24,6 +25,7 @@ function popExample(arr) {
 popExample([1, 2, 3]);
 
 // shift()
+// It basically delete the element present on 0th index
 function shiftExample(arr) {
   console.log("Original Array:", arr);
 
@@ -35,7 +37,6 @@ shiftExample([1, 2, 3]);
 // unshift()
 function unshiftExample(arr, element) {
   console.log("Original Array:", arr);
-
   arr.unshift(element);
   console.log("After unshift:", arr);
 }

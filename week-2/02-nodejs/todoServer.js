@@ -39,11 +39,74 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+app.use(bodyParser.json());
+
+let todoList = [];
+let id = 0;
+app.get("/todos", (req, res) => {
+  res.json(todoList);
+});
+
+app.get("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  const todo = todoList.find((t) => t.id === parseInt(id));
+  if (!todo) {
+    res.status(404).send();
+  } else {
+    res.json(todo);
+  }
+});
+
+app.post("/todos", (req, res) => {
+  const title = req.body.title;
+  const description = req.body.description;
+
+  if (!title || !description) {
+    return res.status(400).send("Please provide both title and description");
+  }
+  const todoItem = {
+    id: ++id,
+    title: title,
+    description: description,
+  };
+  todoList.push(todoItem);
+
+  res.status(201).send("Todo Created Successfully");
+});
+
+app.put("/todos/:id", (req, res) => {
+  const todoIndex = todoList.findIndex((t) => t.id === parseInt(req.params.id));
+  if (todoIndex === -1) {
+    res.status(404).send();
+  } else {
+    todoList[todoIndex].title = req.body.title;
+    todoList[todoIndex].description = req.body.description;
+    res.json(todoList[todoIndex]);
+  }
+});
+
+app.delete("/todos/:id",(res,req)=>{
+  const todoIndex = todoList.findIndex((t)=>t.id === parseInt(req.body.id));
+  if(todoIndex ===-1){
+    res.status(404).send();
+  }else{
+    todoList.slice(todoIndex,1);
+    res.status(200).send();
+  }
+
+})
+
+// for all other routes, return 404
+app.use((req, res, next) => {
+  res.status(404).send();
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+module.exports = app;
